@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const methodOverride = require('method-override');
 
-mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
-// mongoose.connect('mongodb://localhost/nzfd');
+// mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
+mongoose.connect('mongodb://localhost/nzfd');
 
 const Questions = mongoose.model('Question', {
     title: String,
