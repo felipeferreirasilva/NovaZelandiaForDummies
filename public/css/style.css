@@ -20,17 +20,7 @@ body{
     text-decoration: none;
 }
 
-.bg-home{
-    background-color:#81D6CF;
-    height: 100vh;
-    text-align: center;
-}
-
-.bg-home img{
-    margin-top: 10%;
-}
-
-#background {
+.bg-home {
     border: none;
     position: fixed;
     top: 50%;

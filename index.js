@@ -32,7 +32,7 @@ app.get('/about', function(req, res){
 app.get('/questions', function(req, res){
     var query = req.query.search;
     if(query){
-        Questions.find({title: { $regex: query, $options: 'i'}}, function(err, data){
+        Questions.find({answer: { $regex: query, $options: 'i'}}, function(err, data){
             if(err){
                 console.log('Erro ao carregar perguntas ' + err);
             }else{
