@@ -26,7 +26,8 @@
                         <div class="mb-2 card">
                             <div class="card-header" id="<%= question._id %>">
                                 <h5 class="mb-0">
-                                    <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
+                                    <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button>
+                                    <a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
                                 </h5>
                             </div>
                             <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
