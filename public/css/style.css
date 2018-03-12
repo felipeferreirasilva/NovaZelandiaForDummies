@@ -1,0 +1,21 @@
+body{
+    background-image: linear-gradient(to right, #dee2e4 0%, #cfd9df 100%);
+    font-family: 'Raleway', sans-serif;
+}
+
+.jumbotron{
+    background-color: #f8f9fa!important;
+}
+
+.btn-link{
+    border: none;
+}
+
+.btn-link:focus{
+    outline:none;
+    text-decoration: none;
+}
+
+.btn-link:hover{
+    text-decoration: none;
+}
