@@ -6,6 +6,7 @@ const request = require('request');
 const methodOverride = require('method-override');
 
 mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
+// mongoose.connect('mongodb://localhost/nzfd');
 
 const Questions = mongoose.model('Question', {
     title: String,
@@ -29,13 +30,24 @@ app.get('/about', function(req, res){
 });
 
 app.get('/questions', function(req, res){
-    Questions.find({}, function(err, data){
-        if(err){
-            console.log('Erro ao carregar perguntas ' + err);
-        }else{
-            res.render('questions', {questions: data});
-        }
-    });
+    var query = req.query.search;
+    if(query){
+        Questions.find({title: { $regex: query, $options: 'i'}}, function(err, data){
+            if(err){
+                console.log('Erro ao carregar perguntas ' + err);
+            }else{
+                res.render('questions', {questions: data});
+            }
+        });
+    }else{
+        Questions.find({}, function(err, data){
+            if(err){
+                console.log('Erro ao carregar perguntas ' + err);
+            }else{
+                res.render('questions', {questions: data});
+            }
+        });
+    }
 });
 
 app.post('/questions', function(req, res){
@@ -46,6 +58,10 @@ app.post('/questions', function(req, res){
     Questions.create(question);
     res.redirect('/questions/new');
 });
+
+app.get('/questions/new', function(req, res){
+    res.render('newquestion');
+})
 
 app.put('/questions/:id', function(req, res){
     var id = req.body.id;
@@ -62,10 +78,6 @@ app.put('/questions/:id', function(req, res){
         }
     });
 });
-
-app.get('/questions/new', function(req, res){
-    res.render('newquestion');
-})
 
 app.get('/questions/:id/edit', function(req, res){
     var id = req.params.id;

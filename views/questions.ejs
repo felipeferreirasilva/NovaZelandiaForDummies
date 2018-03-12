@@ -2,258 +2,47 @@
 
 <div class="jumbotron text-center"><h3><strong>F.A.Q New Zealand</strong></h3></div>
 <div class="container">
+    <form class="form-inline" action="/questions/" method="GET">
+        <div class="form-group mb-2 mr-1">
+            <input type="text" class="form-control" id="search" name="search" placeholder="Termo da pesquisa">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Filtrar</button>
+    </form>
+</div>
+<div class="container">
     
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Transferência de dinheiro</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Transferencia de Dinheiro'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
+    <% const categories = ['Transferencia de Dinheiro', 'Chegando na Nova Zelandia', 'Custo de Vida', 'Moradia', 'Carro / Moto / CNH', 'Banco', 'Vistos', 'Trabalho', 'Estudo', 'Transporte Publico', 'Saude / Seguro Viagem / Seguro Saude', 'Planejamento Financeiro', 'Links e Indicacoes', 'Outros']; %>
 
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Chegando na Nova Zelandia</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Chegando na Nova Zelandia'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
+    <% categories.forEach(function(ctg){ %>
+        <% var category = ctg %>
+        <% var found = false; %>
+     
+        <% questions.forEach(function(question){ %>
+            <% if(question.category === category){ %>
+                <% found = true %>
+            <% } %>
+        <% }) %>
+    
+        <% if(found){ %>
+            <div class="jumbotron">
+            <div class="mb-4 text-center"><h3><%= category %></h3></div>
+            <% questions.forEach(function(question){ %>
+                <% if(question.category === category){ %>
+                    <div class="mb-2 card">
+                        <div class="card-header" id="<%= question._id %>">
+                            <h5 class="mb-0">
+                                <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
+                            </h5>
+                        </div>
+                        <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
+                            <div class="card-body"><%- question.answer %></div>
+                        </div>
+                    </div>
+                <% } %>
+            <% }); %>
             </div>
         <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Custo de Vida</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Custo de Vida'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>    
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Moradia</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Moradia'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Carro / Moto / CNH</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Carro / Moto / CNH'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Banco</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Banco'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Vistos</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Vistos'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Trabalho</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Trabalho'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Estudo</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Estudo'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Transporte Publico</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Transporte Publico'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Saude / Seguro Viagem / Seguro Saude</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Saude / Seguro Viagem / Seguro Saude'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Planejamento Financeiro</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Planejamento Financeiro'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Links e Indicações</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Links e Indicacoes'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
-
-    <div class="jumbotron">
-    <div class="mb-4 text-center"><h3>Outros</h3></div>
-    <% questions.forEach(function(question){ %>
-        <% if(question.category === 'Outros'){ %>
-            <div class="mb-2 card">
-                <div class="card-header" id="<%= question._id %>">
-                    <h5 class="mb-0">
-                        <button class="btn-link collapsed" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button><a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
-                    </h5>
-                </div>
-                <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
-                    <div class="card-body"><%- question.answer %></div>
-                </div>
-            </div>
-        <% } %>
-    <% }); %>
-    </div>
+    <% }) %>
 
 </div>
 <% include partials/footer %>
