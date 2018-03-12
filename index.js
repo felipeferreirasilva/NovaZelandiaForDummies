@@ -78,6 +78,7 @@ app.get('/questions/:id/edit', function(req, res){
     });
 });
 
-app.listen(3000, function(){
-    console.log('Server is running...');
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+    console.log('Server listening on port %s', port);
 });
