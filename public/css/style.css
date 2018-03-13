@@ -2,7 +2,7 @@ body{
     font-family: 'Raleway', sans-serif;
     background-image: url('/images/bg.jpg');
     background-repeat: no-repeat;
-    background-color: #211023;
+    background-color: #135667;
 }
 
 .jumbotron{
@@ -50,7 +50,7 @@ body{
     .bg-home{
         width: 100vh;
         background: url(/images/bg.jpg) no-repeat;
-        background-color: #211023;
+        background-color: #135667;
         background-size: cover;
     }
 }
