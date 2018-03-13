@@ -1,0 +1,23 @@
+<% include partials/header %>
+
+<div class="jumbotron text-center">
+    <h3><strong>Login de Usuário</strong></h3>
+</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Digite o seu email" name="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Digite sua senha" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Logar</button>
+        </form>
+    </div>
+</div>
+
+<% include partials/footer %>

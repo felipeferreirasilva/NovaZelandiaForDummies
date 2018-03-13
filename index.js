@@ -1,19 +1,17 @@
-const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const request = require('request');
-const methodOverride = require('method-override');
+const express               = require('express'),
+      app                   = express(),
+      mongoose              = require('mongoose'),
+      bodyParser            = require('body-parser'),
+      request               = require('request'),
+      methodOverride        = require('method-override'),
+      passport              = require('passport'),
+      LocalStrategy         = require('passport-local'),
+      passportLocalMongoose = require('passport-local-mongoose'),
+      Questions             = require('./models/questions'),
+      User                  = require('./models/user')
 
 mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
 // mongoose.connect('mongodb://localhost/nzfd');
-
-const Questions = mongoose.model('Question', {
-    title: String,
-    answer: String,
-    category: String,
-    approved: Boolean
-});
 
 app.set('view engine', 'ejs');
 
@@ -21,12 +19,24 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
+app.use(require('express-session')({
+    secret: 'nzfd',
+    resave: false,
+    saveUninitialized: false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.get('/', function(req, res){
-    res.render('index');
+    res.render('index', {logged: req.isAuthenticated()});
 });
 
 app.get('/about', function(req, res){
-    res.render('about');
+    res.render('about', {logged: req.isAuthenticated()});
 });
 
 app.get('/questions', function(req, res){
@@ -36,7 +46,7 @@ app.get('/questions', function(req, res){
             if(err){
                 console.log('Erro ao carregar perguntas ' + err);
             }else{
-                res.render('questions', {questions: data});
+                res.render('questions', {questions: data, query: query, logged: req.isAuthenticated()});
             }
         });
     }else{
@@ -44,7 +54,7 @@ app.get('/questions', function(req, res){
             if(err){
                 console.log('Erro ao carregar perguntas ' + err);
             }else{
-                res.render('questions', {questions: data});
+                res.render('questions', {questions: data, query: query, logged: req.isAuthenticated()});
             }
         });
     }
@@ -59,8 +69,8 @@ app.post('/questions', function(req, res){
     res.redirect('/questions/new');
 });
 
-app.get('/questions/new', function(req, res){
-    res.render('newquestion');
+app.get('/questions/new', isLoggedIn, function(req, res){
+    res.render('newquestion', {logged: req.isAuthenticated()});
 })
 
 app.put('/questions/:id', function(req, res){
@@ -79,16 +89,59 @@ app.put('/questions/:id', function(req, res){
     });
 });
 
-app.get('/questions/:id/edit', function(req, res){
+app.get('/questions/:id/edit', isLoggedIn, function(req, res){
     var id = req.params.id;
     Questions.findById(id, function(err, data){
         if(err){
             console.log('Erro ao buscar pergunta ' + err);
         }else{
-            res.render('updatequestion', {question: data});
+            res.render('updatequestion', {question: data, logged: req.isAuthenticated()});
         }
     });
 });
+
+app.get('/register', function(req, res){
+    res.render('register', {logged: req.isAuthenticated()});
+});
+
+app.post('/register', function(req, res){
+    var name = req.body.name;
+    var email = req.body.email;
+    var username = req.body.email;
+    var password = req.body.password;
+
+    User.register({name: name, email: email, role: 'user', username: username}, password, function(err, user){
+        if(err){
+            console.log('Erro ao cadastrar usuario: ' + err);
+        }else{
+            res.redirect('/');
+        }
+    });
+});
+
+app.get('/login', function(req, res){
+    res.render('login', {logged: req.isAuthenticated()});
+});
+
+app.post('/login', passport.authenticate('local',{
+    successRedirect: '/',
+    failureRedirect: '/login'
+}), function(req, res){
+    
+});
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/login');
+}
 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {

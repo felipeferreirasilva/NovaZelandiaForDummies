@@ -1,9 +1,9 @@
-<% include partials/header %>
+<%- include('partials/header',{logged:logged}) %>
     <div class="jumbotron text-center"><h3><strong>F.A.Q New Zealand</strong></h3></div>
     <div class="container">   
         <form action="/questions/" method="GET">
             <div class="input-group mb-4" style="height: 50px">
-                <input type="text" class="form-control" placeholder="Termo da Pesquisa" name="search" style="background-color: #f8f9fa;">
+                <input type="text" class="form-control" placeholder="Termo da Pesquisa" name="search" style="background-color: #f8f9fa;" value="<%= query %>">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Pesquisar</button>
                 </div>
@@ -26,8 +26,10 @@
                         <div class="mb-2 card">
                             <div class="card-header" id="<%= question._id %>">
                                 <h5 class="mb-0">
-                                    <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button>
-                                    <a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
+                                    <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button> 
+                                    <% if(logged) { %>
+                                        <a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
+                                    <% } %> 
                                 </h5>
                             </div>
                             <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">
