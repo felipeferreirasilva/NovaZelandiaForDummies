@@ -18,7 +18,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/">Inicio</a>
                 </li>
@@ -28,12 +28,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/questions">Perguntas</a>
                 </li>
-                <li class="nav-item dropdown ">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gerenciar</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu dropdown-menu-right mt-2 text-right" aria-labelledby="navbarDropdown">
                     <% if(!logged){ %>
-                        <a class="dropdown-item" href="/login">Login</a>
-                        <a class="dropdown-item" href="/register">Registro</a>
+                        <a class="dropdown-item" href="/login">Entrar</a>
+                        <a class="dropdown-item" href="/register">Registrar</a>
                     <% } else { %>
                         <a class="dropdown-item" href="/questions/new">Incluir Pergunta</a>
                         <a class="dropdown-item" href="/logout">Logout</a>

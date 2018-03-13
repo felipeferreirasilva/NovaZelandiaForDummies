@@ -1,14 +1,13 @@
 const express               = require('express'),
-      app                   = express(),
       mongoose              = require('mongoose'),
       bodyParser            = require('body-parser'),
-      request               = require('request'),
       methodOverride        = require('method-override'),
       passport              = require('passport'),
       LocalStrategy         = require('passport-local'),
       passportLocalMongoose = require('passport-local-mongoose'),
       Questions             = require('./models/questions'),
-      User                  = require('./models/user')
+      User                  = require('./models/user'),
+      app                   = express()
 
 mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
 // mongoose.connect('mongodb://localhost/nzfd');
