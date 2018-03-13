@@ -53,5 +53,9 @@ body{
         background-color: #135667;
         background-size: cover;
     }
+
+    body{
+        background-image: url('/images/bg.jpg');
+    }
 }
 
