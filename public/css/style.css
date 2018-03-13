@@ -1,8 +1,8 @@
 body{
-    /* background-image: linear-gradient(to right, #dee2e4 0%, #cfd9df 100%); */
     font-family: 'Raleway', sans-serif;
-
-    background-image: url('/images/bgpage.jpg');
+    background-image: url('/images/bg.jpg');
+    background-repeat: no-repeat;
+    background-color: #211023;
 }
 
 .jumbotron{
@@ -49,8 +49,8 @@ body{
 @media only screen and (max-width: 600px) {
     .bg-home{
         width: 100vh;
-        background: url(/images/bghome.jpg) no-repeat;
-        background-color: #0F0C51;
+        background: url(/images/bg.jpg) no-repeat;
+        background-color: #211023;
         background-size: cover;
     }
 }
