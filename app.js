@@ -43,7 +43,7 @@ app.get('/questions', function(req, res){
     if(query){
         Questions.find({answer: { $regex: query, $options: 'i'}}, function(err, data){
             if(err){
-                console.log('Erro ao carregar perguntas ' + err);
+                console.log(err);
             }else{
                 res.render('questions', {questions: data, query: query, logged: req.isAuthenticated(), user: req.user});
             }
@@ -51,7 +51,7 @@ app.get('/questions', function(req, res){
     }else{
         Questions.find({}, function(err, data){
             if(err){
-                console.log('Erro ao carregar perguntas ' + err);
+                console.log(err);
             }else{
                 res.render('questions', {questions: data, query: query, logged: req.isAuthenticated(), user: req.user});
             }
@@ -82,7 +82,7 @@ app.put('/questions/:id', function(req, res){
     
     Questions.findByIdAndUpdate(id, question, function(err, data){
         if(err){
-            console.log('Não foi possivel atualizar ' + err);
+            console.log(err);
         }else{
             res.redirect('/questions');
         }
@@ -93,7 +93,7 @@ app.get('/questions/:id/edit', isLoggedIn, function(req, res){
     if(req.user.role === 'editor' || req.user.role === 'admin'){
         Questions.findById(req.params.id, function(err, data){
             if(err){
-                console.log('Erro ao buscar pergunta ' + err);
+                console.log(err);
             }else{
                 res.render('updatequestion', {question: data, logged: req.isAuthenticated(), user: req.user});
             }
@@ -104,13 +104,15 @@ app.get('/questions/:id/edit', isLoggedIn, function(req, res){
 });
 
 app.get('/unapprovedquestions', isLoggedIn, function(req, res){
-    Questions.find({approved: false}, function(err, data){
-        if(err){
-            console.log('Erro ao carregar perguntas ' + err);
-        }else{
-            res.render('unapprovedquestion', {questions: data, logged: req.isAuthenticated(), user: req.user});
-        }
-    });
+    if(req.user.role === 'editor' || req.user.role === 'admin'){
+        Questions.find({approved: false}, function(err, data){
+            if(err){
+                console.log(err);
+            }else{
+                res.render('unapprovedquestion', {questions: data, logged: req.isAuthenticated(), user: req.user});
+            }
+        });
+    }
 });
 
 app.get('/register', function(req, res){
@@ -125,7 +127,7 @@ app.post('/register', function(req, res){
 
     User.register({name: name, email: email, role: 'user', username: username}, password, function(err, user){
         if(err){
-            console.log('Erro ao cadastrar usuario: ' + err);
+            console.log(err);
         }else{
             res.redirect('/');
         }
