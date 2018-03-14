@@ -22,10 +22,10 @@
                                     <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button> 
                                     <% if(logged) { %>
                                         <% if(user.role === 'editor'){ %>
-                                            <a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil btn btn-primary"></span></a>
+                                            <a href="/questions/<%= question._id %>/edit"><span class="oi oi-pencil btn btn-primary"></span></a>
                                         <% } else if (user.role === 'admin') { %>
-                                            <a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil btn btn-primary"></span></a>
-                                            <a href="/questions/<%= question._id %>/remove" id="editBtn"><span class="oi oi-trash btn btn-danger"></span></a>
+                                            <a href="/questions/<%= question._id %>/edit"><span class="oi oi-pencil btn btn-primary"></span></a>
+                                            <a href="/questions/<%= question._id %>/remove"><span class="oi oi-trash btn btn-danger"></span></a>
                                         <% } %>
                                     <% } %> 
                                 </h5>

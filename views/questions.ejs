@@ -3,7 +3,7 @@
     <div class="container">   
         <form action="/questions/" method="GET">
             <div class="input-group mb-4">
-                <input type="text" class="form-control" placeholder="Termo da Pesquisa" name="search"  value="<%= query %>">
+                <input type="text" class="form-control" placeholder="termo da pesquisa..." name="search" value="<%= query %>">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Pesquisar</button>
                 </div>
@@ -29,7 +29,7 @@
                                     <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button> 
                                     <% if(logged) { %>
                                         <% if(user.role === 'editor' || user.role === 'admin'){ %>
-                                            <a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil btn btn-primary"></span></a>
+                                            <a href="/questions/<%= question._id %>/edit"><span class="oi oi-pencil btn btn-primary"></span></a>
                                         <% } %>
                                     <% } %> 
                                 </h5>
