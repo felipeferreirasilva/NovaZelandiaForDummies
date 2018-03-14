@@ -14,7 +14,7 @@
             <% var category = ctg %>
             <% var found = false; %>
             <% questions.forEach(function(question){ %>
-                <% if(question.category === category && question.approved === true){ %>
+                <% if(question.category === category){ %>
                     <% found = true %>
                 <% } %>
             <% }) %>
@@ -22,7 +22,7 @@
                 <div class="jumbotron">
                 <div class="mb-4 text-center"><h3><%= category %></h3></div>
                 <% questions.forEach(function(question){ %>
-                    <% if(question.category === category && question.approved === true){ %>
+                    <% if(question.category === category){ %>
                         <div class="mb-2 card">
                             <div class="card-header" id="<%= question._id %>">
                                 <h5 class="mb-0">

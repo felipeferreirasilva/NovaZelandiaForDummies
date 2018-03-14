@@ -41,7 +41,7 @@ app.get('/about', function(req, res){
 app.get('/questions', function(req, res){
     var query = req.query.search;
     if(query){
-        Questions.find({answer: { $regex: query, $options: 'i'}}, function(err, data){
+        Questions.find({answer: { $regex: query, $options: 'i'}, approved: true}, function(err, data){
             if(err){
                 console.log(err);
             }else{
@@ -49,7 +49,7 @@ app.get('/questions', function(req, res){
             }
         });
     }else{
-        Questions.find({}, function(err, data){
+        Questions.find({ approved: true}, function(err, data){
             if(err){
                 console.log(err);
             }else{
@@ -112,6 +112,8 @@ app.get('/unapprovedquestions', isLoggedIn, function(req, res){
                 res.render('unapprovedquestion', {questions: data, logged: req.isAuthenticated(), user: req.user});
             }
         });
+    }else{
+        res.redirect('/');
     }
 });
 
