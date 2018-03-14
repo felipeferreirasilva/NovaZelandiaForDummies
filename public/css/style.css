@@ -49,7 +49,6 @@ body{
     border-radius: 0px;
 }
 
-
 @media only screen and (max-width: 1025px) {
     .bg-home{
         width: 100vh;
