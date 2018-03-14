@@ -34,8 +34,12 @@
                     <% if(!logged){ %>
                         <a class="dropdown-item" href="/login">Entrar</a>
                         <a class="dropdown-item" href="/register">Registrar</a>
-                    <% } else { %>
+                    <% } else if ( user.role === 'user') { %>
                         <a class="dropdown-item" href="/questions/new">Incluir Pergunta</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    <% } else if (user.role === 'editor' || user.role === 'admin') { %>
+                        <a class="dropdown-item" href="/questions/new">Incluir Pergunta</a>
+                        <a class="dropdown-item" href="/unapprovedquestions">Aprovar Perguntas</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
                     <% } %>
                 </li>

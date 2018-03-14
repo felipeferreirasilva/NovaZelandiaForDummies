@@ -1,20 +1,13 @@
 <% include partials/header %>
-    <div class="jumbotron text-center jb-title"><h2 class="page-title"><strong>F.A.Q New Zealand</strong></h2></div>
+    <div class="jumbotron text-center jb-title"><h2 class="page-title"><strong>Perguntas Pendentes</strong></h2></div>
     <div class="container">   
-        <form action="/questions/" method="GET">
-            <div class="input-group mb-4" style="height: 50px">
-                <input type="text" class="form-control" placeholder="Termo da Pesquisa" name="search" style="background-color: #f8f9fa;" value="<%= query %>">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Pesquisar</button>
-                </div>
-            </div>
-        </form>
+        
         <% const categories = ['Transferencia de Dinheiro', 'Chegando na Nova Zelandia', 'Custo de Vida', 'Moradia', 'Carro / Moto / CNH', 'Banco', 'Vistos', 'Trabalho', 'Estudo', 'Transporte Publico', 'Saude / Seguro Viagem / Seguro Saude', 'Planejamento Financeiro', 'Links e Indicacoes', 'Outros']; %>
         <% categories.forEach(function(ctg){ %>
             <% var category = ctg %>
             <% var found = false; %>
             <% questions.forEach(function(question){ %>
-                <% if(question.category === category && question.approved === true){ %>
+                <% if(question.category === category){ %>
                     <% found = true %>
                 <% } %>
             <% }) %>
@@ -22,7 +15,7 @@
                 <div class="jumbotron">
                 <div class="mb-4 text-center"><h3><%= category %></h3></div>
                 <% questions.forEach(function(question){ %>
-                    <% if(question.category === category && question.approved === true){ %>
+                    <% if(question.category === category){ %>
                         <div class="mb-2 card">
                             <div class="card-header" id="<%= question._id %>">
                                 <h5 class="mb-0">

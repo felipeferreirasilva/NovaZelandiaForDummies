@@ -9,8 +9,8 @@ const express               = require('express'),
       User                  = require('./models/user'),
       app                   = express()
 
-mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
-// mongoose.connect('mongodb://localhost/nzfd');
+// mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
+mongoose.connect('mongodb://localhost/nzfd');
 
 app.set('view engine', 'ejs');
 
@@ -31,11 +31,11 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get('/', function(req, res){
-    res.render('index', {logged: req.isAuthenticated()});
+    res.render('index', {logged: req.isAuthenticated(), user: req.user});
 });
 
 app.get('/about', function(req, res){
-    res.render('about', {logged: req.isAuthenticated()});
+    res.render('about', {logged: req.isAuthenticated(), user: req.user});
 });
 
 app.get('/questions', function(req, res){
@@ -45,7 +45,7 @@ app.get('/questions', function(req, res){
             if(err){
                 console.log('Erro ao carregar perguntas ' + err);
             }else{
-                res.render('questions', {questions: data, query: query, logged: req.isAuthenticated()});
+                res.render('questions', {questions: data, query: query, logged: req.isAuthenticated(), user: req.user});
             }
         });
     }else{
@@ -53,7 +53,7 @@ app.get('/questions', function(req, res){
             if(err){
                 console.log('Erro ao carregar perguntas ' + err);
             }else{
-                res.render('questions', {questions: data, query: query, logged: req.isAuthenticated()});
+                res.render('questions', {questions: data, query: query, logged: req.isAuthenticated(), user: req.user});
             }
         });
     }
@@ -63,13 +63,13 @@ app.post('/questions', function(req, res){
     var title = req.body.title;
     var answer = req.body.answer;
     var category = req.body.category;
-    var question = {title: title, answer: answer, category: category}
+    var question = {title: title, answer: answer, category: category, approved: false, author: req.user.name}
     Questions.create(question);
     res.redirect('/questions/new');
 });
 
 app.get('/questions/new', isLoggedIn, function(req, res){
-    res.render('newquestion', {logged: req.isAuthenticated()});
+    res.render('newquestion', {logged: req.isAuthenticated(), user: req.user});
 })
 
 app.put('/questions/:id', function(req, res){
@@ -77,7 +77,8 @@ app.put('/questions/:id', function(req, res){
     var title = req.body.title;
     var answer = req.body.answer;
     var category = req.body.category;
-    var question = {title: title, answer: answer, category: category}
+    var approved = req.body.approved;
+    var question = {title: title, answer: answer, category: category, approved: approved, author: req.user.name}
     
     Questions.findByIdAndUpdate(id, question, function(err, data){
         if(err){
@@ -89,18 +90,31 @@ app.put('/questions/:id', function(req, res){
 });
 
 app.get('/questions/:id/edit', isLoggedIn, function(req, res){
-    var id = req.params.id;
-    Questions.findById(id, function(err, data){
+    if(req.user.role === 'editor' || req.user.role === 'admin'){
+        Questions.findById(req.params.id, function(err, data){
+            if(err){
+                console.log('Erro ao buscar pergunta ' + err);
+            }else{
+                res.render('updatequestion', {question: data, logged: req.isAuthenticated(), user: req.user});
+            }
+        });
+    }else{
+        res.redirect('/');
+    }
+});
+
+app.get('/unapprovedquestions', isLoggedIn, function(req, res){
+    Questions.find({approved: false}, function(err, data){
         if(err){
-            console.log('Erro ao buscar pergunta ' + err);
+            console.log('Erro ao carregar perguntas ' + err);
         }else{
-            res.render('updatequestion', {question: data, logged: req.isAuthenticated()});
+            res.render('unapprovedquestion', {questions: data, logged: req.isAuthenticated(), user: req.user});
         }
     });
 });
 
 app.get('/register', function(req, res){
-    res.render('register', {logged: req.isAuthenticated()});
+    res.render('register', {logged: req.isAuthenticated(), user: req.user});
 });
 
 app.post('/register', function(req, res){
@@ -119,7 +133,7 @@ app.post('/register', function(req, res){
 });
 
 app.get('/login', function(req, res){
-    res.render('login', {logged: req.isAuthenticated()});
+    res.render('login', {logged: req.isAuthenticated(), user: req.user});
 });
 
 app.post('/login', passport.authenticate('local',{
