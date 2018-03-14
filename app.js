@@ -9,8 +9,8 @@ const express               = require('express'),
       User                  = require('./models/user'),
       app                   = express()
 
-// mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
-mongoose.connect('mongodb://localhost/nzfd');
+mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
+// mongoose.connect('mongodb://localhost/nzfd');
 
 app.set('view engine', 'ejs');
 
