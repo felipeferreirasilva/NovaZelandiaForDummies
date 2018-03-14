@@ -72,6 +72,20 @@ app.get('/questions/new', isLoggedIn, function(req, res){
     res.render('newquestion', {logged: req.isAuthenticated(), user: req.user});
 })
 
+app.get('/questions/approve', isLoggedIn, function(req, res){
+    if(req.user.role === 'editor' || req.user.role === 'admin'){
+        Questions.find({approved: false}, function(err, data){
+            if(err){
+                console.log(err);
+            }else{
+                res.render('approvequestion', {questions: data, logged: req.isAuthenticated(), user: req.user});
+            }
+        });
+    }else{
+        res.redirect('/');
+    }
+});
+
 app.put('/questions/:id', function(req, res){
     var id = req.body.id;
     var title = req.body.title;
@@ -103,13 +117,13 @@ app.get('/questions/:id/edit', isLoggedIn, function(req, res){
     }
 });
 
-app.get('/unapprovedquestions', isLoggedIn, function(req, res){
-    if(req.user.role === 'editor' || req.user.role === 'admin'){
-        Questions.find({approved: false}, function(err, data){
+app.get('/questions/:id/remove', isLoggedIn, function(req, res){
+    if(req.user.role === 'admin'){
+        Questions.findByIdAndRemove(req.params.id, function(err, data){
             if(err){
                 console.log(err);
             }else{
-                res.render('unapprovedquestion', {questions: data, logged: req.isAuthenticated(), user: req.user});
+                res.redirect('/questions/approve');
             }
         });
     }else{

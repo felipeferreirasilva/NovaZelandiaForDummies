@@ -29,7 +29,7 @@
                                     <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button> 
                                     <% if(logged) { %>
                                         <% if(user.role === 'editor' || user.role === 'admin'){ %>
-                                            <a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil"></span></a>
+                                            <a href="/questions/<%= question._id %>/edit" id="editBtn"><span class="oi oi-pencil ml-3"></span></a>
                                         <% } %>
                                     <% } %> 
                                 </h5>
