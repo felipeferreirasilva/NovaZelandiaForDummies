@@ -91,7 +91,7 @@ app.put('/questions/:id', isLoggedIn, function(req, res){
     var title = req.body.title;
     var answer = req.body.answer;
     var category = req.body.category;
-    var question = {title: title, answer: answer, category: category, author: req.user.name}
+    var question = {title: title, answer: answer, category: category, author: req.user.username}
     
     Questions.findByIdAndUpdate(id, question, function(err, data){
         if(err){
