@@ -29,7 +29,10 @@
                                     <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button> 
                                     <% if(logged) { %>
                                         <% if(user.role === 'editor' || user.role === 'admin'){ %>
-                                            <a href="/questions/<%= question._id %>/edit" title="Editar pergunta"><span class="oi oi-pencil btn btn-primary"></span></a>
+                                            <div>
+                                                <a href="/questions/<%= question._id %>/disapprove" title="Desaprovar pergunta"><span class="oi oi-circle-x btn btn-info"></span></a>
+                                                <a href="/questions/<%= question._id %>/edit" title="Editar pergunta"><span class="oi oi-pencil btn btn-primary"></span></a>
+                                            </div>
                                         <% } %>
                                     <% } %> 
                                 </h5>
