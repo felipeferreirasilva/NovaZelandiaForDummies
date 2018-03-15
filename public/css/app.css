@@ -57,6 +57,11 @@ body{
    margin: 0;
 }
 
+.card-header{
+    /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #cdd6e4 100%);
+}
+
 @media only screen and (max-width: 1025px) {
     .bg-home{
         width: 100vh;
