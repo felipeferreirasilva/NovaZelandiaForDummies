@@ -53,6 +53,10 @@ body{
     float: right;
 }
 
+.btn-search{
+   margin: 0;
+}
+
 @media only screen and (max-width: 1025px) {
     .bg-home{
         width: 100vh;
