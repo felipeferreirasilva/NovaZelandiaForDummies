@@ -1,0 +1,42 @@
+<% include partials/header %>
+    <div class="jumbotron text-center jb-title"><h2><strong>Editar Usuário</strong></h2></div>
+    <div class="container">   
+        <form action="/user" method="GET">
+            <div class="input-group mb-4">
+                <input type="email" class="form-control" placeholder="Email do usuário" name="search">
+                <div class="input-group-append">
+                    <button class="btn btn-primary btn-search" type="submit">Buscar</button>
+                </div>
+            </div>
+        </form>     
+        <% if(data){ %>
+            <div class="jumbotron">
+                <div class="mb-4 text-center"><h3><%= data.name %></h3></div>
+                <form action="/user?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <label for="id">Id</label>
+                        <input type="text" class="form-control" id="id" placeholder="Id do usuario" name="id" value="<%= data._id %>" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" class="form-control" id="nome" placeholder="Digite o seu nome completo" name="name" value="<%= data.name %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Digite o seu email" name="email" value="<%= data.email %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select class="form-control" id="role" name="role">
+                            <option value="<%= data.role %>"><%= data.role %></option>
+                            <option value="user">User</option>
+                            <option value="editor">Editor</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        <% } %>   
+    </div>
+<% include partials/footer %>
