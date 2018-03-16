@@ -36,17 +36,19 @@ route.get('/questions', function(req, res){
 });
 
 // CREATE QUESTION
-route.post('/questions', isLoggedIn, function(req, res){
+route.post('/questions', function(req, res){
     var title = req.body.title;
     var answer = req.body.answer;
     var category = req.body.category;
-    var question = {title: title, answer: answer, category: category, approved: false, author: req.user.name}
+    var author = "";
+    if (req.isAuthenticated()){ author = req.user.username};
+    var question = {title: title, answer: answer, category: category, approved: false, author: author}
     Questions.create(question);
     res.redirect('/questions/new');
 });
 
 // CREATE QUESTION FORM
-route.get('/questions/new', isLoggedIn, function(req, res){
+route.get('/questions/new', function(req, res){
     res.render('newquestion', {logged: req.isAuthenticated(), user: req.user});
 });
 
