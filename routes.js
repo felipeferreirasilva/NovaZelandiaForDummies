@@ -35,7 +35,7 @@ route.get('/questions', function(req, res){
 
 route.post('/questions', isLoggedIn, function(req, res){
     var title = req.body.title;
-    var answer = req.sanitize(req.body.answer);
+    var answer = req.body.answer;
     var category = req.body.category;
     var question = {title: title, answer: answer, category: category, approved: false, author: req.user.name}
     Questions.create(question);
@@ -63,7 +63,7 @@ route.get('/questions/toapprove', isLoggedIn, function(req, res){
 route.put('/questions/:id', isLoggedIn, function(req, res){
     var id = req.body.id;
     var title = req.body.title;
-    var answer = req.sanitize(req.body.answer);
+    var answer = req.body.answer;
     var category = req.body.category;
     var question = {title: title, answer: answer, category: category, author: req.user.username}
     

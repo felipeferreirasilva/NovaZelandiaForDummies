@@ -1,7 +1,6 @@
 const express               = require('express'),
       mongoose              = require('mongoose'),
       bodyParser            = require('body-parser'),
-      expressSanitizer      = require('express-sanitizer'),
       methodOverride        = require('method-override'),
       passport              = require('passport'),
       LocalStrategy         = require('passport-local'),
@@ -15,7 +14,6 @@ mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(expressSanitizer());
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 app.use(require('express-session')({secret: 'nzfd', resave: false, saveUninitialized: false}));
