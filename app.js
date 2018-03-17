@@ -11,7 +11,7 @@ const express           = require('express'),
 // PROD DATABASE URL
 mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
 
-// TEST DATABASE URL //
+// TEST DATABASE URL
 // mongoose.connect('mongodb://localhost/nzfd');
 
 // FOLDER PUBLIC SETUP
