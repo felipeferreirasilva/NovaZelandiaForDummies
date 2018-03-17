@@ -18,7 +18,7 @@
     <title>NZ for Dummies</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light navbar-shadow">
         <a href="/"><img src="/images/logo.png" class="navbar-brand" style="width:150px;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -61,5 +61,9 @@
                     <% } %>
                 </li>
             </ul>
+            <form class="form-inline text-center ml-1" action="/questions/" method="GET">
+                <input class="form-control" type="search" placeholder="Pesquisar..." name="search" required>
+                <button class="btn btn-primary btn-md ml-2" type="submit"><span class="oi oi-magnifying-glass"></span></button>
+            </form>
         </div>
     </nav>

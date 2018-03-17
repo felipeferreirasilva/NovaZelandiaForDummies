@@ -1,14 +1,6 @@
 <% include partials/header %>
-    <div class="jumbotron text-center jb-title"><h2><strong>F.A.Q New Zealand</strong></h2></div>
+    <div class="jumbotron jumbotron-fluid text-center jb-title"><h2><strong>Perguntas e Respostas</strong></h2></div>
     <div class="container">   
-        <form action="/questions/" method="GET">
-            <div class="input-group mb-4">
-                <input type="text" class="form-control" placeholder="Termo da pesquisa" name="search" value="<%= query %>">
-                <div class="input-group-append">
-                    <button class="btn btn-primary btn-search" type="submit">Pesquisar</button>
-                </div>
-            </div>
-        </form>
         <% const categories = ['Transferencia de Dinheiro', 'Chegando na Nova Zelandia', 'Custo de Vida', 'Moradia', 'Carro / Moto / CNH', 'Banco', 'Vistos', 'Trabalho', 'Estudo', 'Transporte Publico', 'Saude / Seguro Viagem / Seguro Saude', 'Planejamento Financeiro', 'Links e Indicacoes', 'Outros']; %>
         <% categories.forEach(function(ctg){ %>
             <% var category = ctg %>
