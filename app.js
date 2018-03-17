@@ -8,8 +8,11 @@ const express           = require('express'),
       Routes            = require('./routes'),
       app               = express();
 
+// PROD DATABASE URL
+mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
+
 // TEST DATABASE URL
-mongoose.connect('mongodb://localhost/nzfd');
+// mongoose.connect('mongodb://localhost/nzfd');
 
 // FOLDER PUBLIC SETUP
 app.use(express.static('public'));
