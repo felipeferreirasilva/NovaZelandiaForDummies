@@ -5,9 +5,8 @@ const express           = require('express'),
       flash             = require('connect-flash'),
       localStrategy     = require('passport-local'),
       db                = require('./models'),
-      routes            = require('./controllers/routes'),
+      routes            = require('./controllers'),
       app               = express();
-
 
 // FOLDER PUBLIC SETUP
 app.use(express.static('public'));

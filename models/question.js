@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Questions = mongoose.model('Question', {
+const Question = mongoose.model('Question', {
     title: String,
     answer: String,
     category: String,
@@ -8,4 +8,4 @@ const Questions = mongoose.model('Question', {
     author: String
 });
 
-module.exports = Questions;
+module.exports = Question;

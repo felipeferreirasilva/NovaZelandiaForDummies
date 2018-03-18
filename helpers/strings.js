@@ -1,4 +1,4 @@
-const Strings = 
+exports.text = 
 {
     noPermission: 'Você não tem permissão para acessar esta pagina.',
     questionUpdated: 'Pergunta atualizada com sucesso!',
@@ -8,8 +8,8 @@ const Strings =
     userUpdated: 'Usuario atualizado com sucesso!',
     noQuestionsFound: 'Sua busca não retornou nenhum resultado, tente usar outro termo.',
     questionCreateSuccessful: 'Pergunta inserida com sucesso, aguarde aprovação do moderador',
-    questionApproved: 'Questão aprovada e enviada para a área de Perguntas!',
-    questionRepproved: 'Questão reprovada e enviada para a área de Perguntas Pendentes.'
+    questionApproved: 'Pergunta aprovada e enviada para a área de Perguntas!',
+    questionRepproved: 'Pergunta reprovada e enviada para a área de Perguntas Pendentes.'
 };
 
-module.exports = Strings;
+module.exports = exports;
