@@ -9,6 +9,13 @@ body{
     padding-top: 85px;
 }
 
+.alert{
+    position: fixed;
+    right: 10%;
+    left: 10%;
+    margin-top: 2%;
+}
+
 .navbar-shadow{
     box-shadow: unset;
 }

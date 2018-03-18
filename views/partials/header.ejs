@@ -39,22 +39,22 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <% if(logged){ %>
-                            <%= user.username %>
+                        <% if(isLogged){ %>
+                            <%= currentUser.username %>
                         <% }else{ %>
                             Gerenciar
                         <% } %>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="navbarDropdown">
-                    <% if(!logged){ %>
+                    <% if(!isLogged){ %>
                         <a class="dropdown-item" href="/login">Entrar</a>
                         <a class="dropdown-item" href="/register">Registrar</a>
-                    <% } else if (user.role === 'user') { %>
+                    <% } else if (currentUser.role === 'user') { %>
                         <a class="dropdown-item" href="/logout">Logout</a>
-                    <% } else if (user.role === 'editor') { %>
+                    <% } else if (currentUser.role === 'editor') { %>
                         <a class="dropdown-item" href="/questions/toapprove">Perguntas Pendentes</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
-                    <% } else if (user.role === 'admin') { %>
+                    <% } else if (currentUser.role === 'admin') { %>
                         <a class="dropdown-item" href="/questions/toapprove">Perguntas Pendentes</a>
                         <a class="dropdown-item" href="/user">Editar Usuarios</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
@@ -67,3 +67,25 @@
             </form>
         </div>
     </nav>
+    <% if(error.length > 0){ %>
+        <div class="container">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong><%= error %></strong>
+            </div>
+        </div>
+    <% }else if (success.length > 0){ %>
+        <div class="container">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong><%= success %></strong>
+            </div>
+        </div>
+    <% } %>
+
+    
+    

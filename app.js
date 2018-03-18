@@ -1,18 +1,13 @@
 const express           = require('express'),
-      mongoose          = require('mongoose'),
       bodyParser        = require('body-parser'),
       methodOverride    = require('method-override'),
       passport          = require('passport'),
-      LocalStrategy     = require('passport-local'),
-      User              = require('./models/user'),
-      Routes            = require('./routes'),
+      flash             = require('connect-flash'),
+      localStrategy     = require('passport-local'),
+      db                = require('./models'),
+      routes            = require('./controllers/routes'),
       app               = express();
 
-// PROD DATABASE URL
-mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
-
-// TEST DATABASE URL
-// mongoose.connect('mongodb://localhost/nzfd');
 
 // FOLDER PUBLIC SETUP
 app.use(express.static('public'));
@@ -29,15 +24,27 @@ app.use(methodOverride('_method'));
 // EXPRESS SESSION SETUP
 app.use(require('express-session')({secret: 'nzfd', resave: false, saveUninitialized: false}));
 
+// SETUP FLASH
+app.use(flash());
+
 // PASSPORT SETUP
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new localStrategy(db.User.authenticate()));
+passport.serializeUser(db.User.serializeUser());
+passport.deserializeUser(db.User.deserializeUser());
+
+// SEND THESE VARIABLES TO ALL PAGES
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    res.locals.isLogged = req.isAuthenticated();
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
+    next();
+});
 
 // IMPORT ROUTES
-app.use(Routes);
+app.use(routes);
 
 // SERVICE START
 var port = process.env.PORT || 3000;

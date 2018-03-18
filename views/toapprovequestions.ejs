@@ -19,13 +19,18 @@
                             <div class="card-header" id="<%= question._id %>">
                                 <h5 class="mb-0">
                                     <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button> 
-                                    <% if(logged) { %>
-                                        <% if(user.role === 'editor'){ %>
-                                            <a href="/questions/<%= question._id %>/approve" title="Aprovar pergunta"><span class="oi oi-check btn btn-success btn-md"></span></a>
+                                    <% if(isLogged) { %>
+                                        <% if(currentUser.role === 'editor'){ %>
+                                            <form action="/questions/<%= question._id %>/approve?_method=PUT" method="POST">
+                                                <button type="submit" title="Aprovar pergunta" class="oi oi-check btn btn-success btn-md"></button>
+                                            </form>
                                             <a href="/questions/<%= question._id %>/edit" title="Editar pergunta"><span class="oi oi-pencil btn btn-primary btn-md"></span></a>
-                                        <% } else if (user.role === 'admin') { %>
+                                        <% } else if (currentUser.role === 'admin') { %>
                                             <div>
-                                                <a href="/questions/<%= question._id %>/approve" title="Aprovar pergunta"><span class="oi oi-check btn btn-success btn-md"></span></a>
+                                                <form action="/questions/<%= question._id %>/approve?_method=PUT" method="POST">
+                                                    <button type="submit" title="Aprovar pergunta" class="oi oi-check btn btn-success btn-md"></button>
+                                                </form>
+
                                                 <a href="/questions/<%= question._id %>/edit" title="Editar pergunta"><span class="oi oi-pencil btn btn-primary btn-md"></span></a>
                                                 <form action="/questions/<%= question._id %>?_method=DELETE" method="POST">
                                                     <button type="submit" title="Excluir Pergunta" class="oi oi-trash btn btn-danger btn-md"></button>
