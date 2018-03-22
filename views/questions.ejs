@@ -11,8 +11,8 @@
                 <% } %>
             <% }) %>
             <% if(found){ %>
-                <div class="jumbotron">
-                <div class="mb-3 text-center"><h3><%= category %></h3></div>
+                <div class="jumbotron jb-category">
+                <div class="mb-4 mt-2 text-center"><h3><%= category %></h3></div>
                 <% questions.forEach(function(question){ %>
                     <% if(question.category === category){ %>
                         <div class="card mb-3">

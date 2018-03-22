@@ -9,7 +9,8 @@ exports.text =
     noQuestionsFound: 'Sua busca não retornou nenhum resultado, tente usar outro termo.',
     questionCreateSuccessful: 'Pergunta inserida com sucesso, aguarde aprovação do moderador',
     questionApproved: 'Pergunta aprovada e enviada para a área de Perguntas!',
-    questionRepproved: 'Pergunta reprovada e enviada para a área de Perguntas Pendentes.'
+    questionRepproved: 'Pergunta reprovada e enviada para a área de Perguntas Pendentes.',
+    commentCreated: 'O comentário foi inserido com sucesso!'
 };
 
 module.exports = exports;

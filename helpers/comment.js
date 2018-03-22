@@ -4,6 +4,7 @@ const   db              = require('../models'),
 exports.createComment = function(req, res){
     db.Comment.create({questionId: req.query.id, text: req.body.text, author: req.user.name, username: req.user.username})
     .then(function(){
+        req.flash('success', strings.const.text.commentCreated)
         res.redirect('/questions/' + req.query.id)
     })
     .catch(function(err){
