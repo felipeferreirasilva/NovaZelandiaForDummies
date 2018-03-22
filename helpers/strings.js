@@ -1,5 +1,4 @@
-exports.text = 
-{
+exports.text = {
     noPermission: 'Você não tem permissão para acessar esta pagina.',
     questionUpdated: 'Pergunta atualizada com sucesso!',
     questionDeleted: 'Pergunta excluida com sucesso!',
@@ -10,7 +9,8 @@ exports.text =
     questionCreateSuccessful: 'Pergunta inserida com sucesso, aguarde aprovação do moderador',
     questionApproved: 'Pergunta aprovada e enviada para a área de Perguntas!',
     questionRepproved: 'Pergunta reprovada e enviada para a área de Perguntas Pendentes.',
-    commentCreated: 'O comentário foi inserido com sucesso!'
+    commentCreated: 'O comentário foi inserido com sucesso!',
+    commentDeleted: 'O comentário foi excluido com sucesso!'
 };
 
 module.exports = exports;

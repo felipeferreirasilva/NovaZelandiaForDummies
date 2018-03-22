@@ -10,9 +10,18 @@
             <% comments.forEach(function(comment){ %>
                 <div class="jumbotron jb-comment mb-3">
                     <div>
+                        <% if(isLogged){ %>
+                            <% if(currentUser.role === 'admin'){ %>
+                                <div class="btn-delete-comment">
+                                    <form action="/questions/<%= question._id %>/comment?_method=DELETE&cid=<%= comment._id %>" method="POST">
+                                        <button type="submit" title="Excluir Comentario" class="oi oi-trash btn btn-danger btn-md"></button>
+                                    </form>
+                                </div>
+                            <% } %>
+                        <% } %>
                         <h5><%= comment.author %></h5>
                         <h6><%= comment.date.toDateString() %></h6>
-                        <span><%= comment.text %></span>
+                        <span><%= comment.text %></span>   
                     </div>
                 </div>
             <% }) %>

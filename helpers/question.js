@@ -33,9 +33,7 @@ exports.getQuestions = function(req, res){
                 })
             }
         })       
-        .catch(function(err){
-            console.log(err);
-        });
+        .catch((err) => console.log(err));
     }else{
         db.Question.find({ approved: true})
         .then(function(data){
@@ -44,9 +42,7 @@ exports.getQuestions = function(req, res){
                 res.render('questions', {questions: data, query: query, comments: comments});
             })
         })
-        .catch(function(err){
-            console.log(err);
-        });        
+        .catch((err) => console.log(err));        
     }
 }
 
@@ -62,9 +58,7 @@ exports.createQuestion = function(req, res){
         req.flash('success', strings.const.text.questionCreateSuccessful);
         res.redirect('/questions/new');
     })
-    .catch(function(err){
-        console.log(err);
-    });
+    .catch((err) => console.log(err));
 }
 
 exports.getNonapprovedQuestions = function(req, res){
@@ -73,9 +67,7 @@ exports.getNonapprovedQuestions = function(req, res){
         .then(function(data){
             res.render('toapprovequestions', {questions: data});
         })
-        .catch(function(err){
-            console.log(err);
-        }); 
+        .catch((err) => console.log(err)); 
     }else{
         req.flash('error', strings.const.text.noPermission);
         res.redirect('/');
@@ -93,21 +85,21 @@ exports.updateQuestion = function(req, res){
         req.flash('success', strings.const.text.questionUpdated);
         res.redirect('/questions');
     })
-    .catch(function(err){
-        console.log(err);
-    });
+    .catch((err) => console.log(err));
 }
 
 exports.deleteQuestion = function(req, res){
     if(req.user.role === 'admin'){
         db.Question.findByIdAndRemove(req.params.id)
         .then(function(){
-            req.flash('success', strings.const.text.questionDeleted);
-            res.redirect('/questions/toapprove');
+            db.Comment.remove({questionId: req.params.id})
+            .then(function(){
+                req.flash('success', strings.const.text.questionDeleted);
+                res.redirect('/questions/toapprove');
+            })
+            .catch((err) => console.log(err));        
         })
-        .catch(function(err){
-            console.log(err);
-        });    
+        .catch((err) => console.log(err));    
     }else{
         req.flash('error', strings.const.text.noPermission);
         res.redirect('/');
@@ -120,9 +112,7 @@ exports.updateQuestionForm = function(req, res){
         .then(function(data){
             res.render('updatequestion', {question: data});
         })
-        .catch(function(err){
-            console.log(err);
-        });
+        .catch((err) => console.log(err));
     }else{
         req.flash('error', strings.const.text.noPermission);
         res.redirect('/');
@@ -136,9 +126,7 @@ exports.approveQuestion = function(req, res){
             req.flash('success', strings.const.text.questionApproved);
             res.redirect('/questions/toapprove');
         })
-        .catch(function(err){
-            console.log(err);
-        });
+        .catch((err) => console.log(err));
     }else{
         req.flash('error', strings.const.text.noPermission);
         res.redirect('/');
@@ -152,9 +140,7 @@ exports.disapproveQuestion = function(req, res){
             req.flash('success', strings.const.text.questionRepproved);
             res.redirect('/questions');
         })
-        .catch(function(err){
-            console.log(err);
-        });
+        .catch((err) => console.log(err));
     }else{
         req.flash('error', strings.const.text.noPermission);
         res.redirect('/');

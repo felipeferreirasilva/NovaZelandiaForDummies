@@ -7,9 +7,7 @@ exports.createComment = function(req, res){
         req.flash('success', strings.const.text.commentCreated)
         res.redirect('/questions/' + req.params.id + '/comment')
     })
-    .catch(function(err){
-        console.log(err)
-    })
+    .catch((err) => console.log(err))
 }
 
 exports.getComment = function(req, res){
@@ -19,11 +17,22 @@ exports.getComment = function(req, res){
         .then(function(comments){
             res.render('comments', {question: question, comments: comments})
         })
-        .catch(function(err){
-            console.log(err)
-        }) 
+        .catch((err) => console.log(err)) 
     })
-    .catch(function(err){
-        console.log(err);
-    })
+    .catch((err) => console.log(err))
 }
+
+exports.deleteComment = function(req, res){        
+    if(req.user.role === 'admin'){
+        db.Comment.findByIdAndRemove(req.query.cid)
+        .then(function(){
+            req.flash('success', strings.const.text.commentDeleted)
+            res.redirect('/questions/' + req.params.id + '/comment')
+        })
+        .catch((err) => console.log(err))
+    }else{
+        res.redirect('/')
+    }
+}
+
+module.exports = exports;

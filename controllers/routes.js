@@ -46,6 +46,7 @@ router.route('/questions/:id/disapprove')
 router.route('/questions/:id/comment')
 .get(helpers.comment.getComment)
 .post(middleware.auth.isLoggedIn, helpers.comment.createComment)
+.delete(middleware.auth.isLoggedIn, helpers.comment.deleteComment)
 
 // REGISTER 
 router.route('/register')

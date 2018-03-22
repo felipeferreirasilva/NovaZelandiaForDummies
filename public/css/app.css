@@ -87,8 +87,8 @@ body{
     border-radius: 5px;
 }
 
-.jb-about{
-    /* margin: 1% 1%; */
+.btn-delete-comment{
+    float: right;
 }
 
 .badge-notify{

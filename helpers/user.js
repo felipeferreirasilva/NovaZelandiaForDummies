@@ -31,9 +31,7 @@ exports.editUserForm = function(req, res){
             .then(function(data){
                 res.render('user', {data: data});
             })
-            .catch(function(err){
-                console.log(err);
-            });
+            .catch((err) => console.log(err));
         }else{
             res.render('user', {data: false});
         }
