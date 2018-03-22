@@ -1,10 +1,10 @@
 <% include partials/header %>
 <div class="jumbotron jumbotron-fluid text-center jb-title"><h2><strong>Alterar Pergunta</strong></h2></div>
 <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron uq-jumbotron">
         <form action="/questions/<%= question._id %>?_method=PUT" method="POST">
             <div class="form-group">
-                <label for="id">Id</label>
+                <label for="id">Identificador</label>
                 <input type="text" class="form-control" id="id" name="id" value="<%= question._id %>" required readonly>
             </div> 
             <div class="form-group">
