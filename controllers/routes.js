@@ -5,15 +5,11 @@ const   router      = require('express').Router(),
 
 // INDEX
 router.route('/')
-.get(function(req, res){
-    res.render('index');
-});
+.get((req, res) => res.render('index'));
 
 // ABOUT
 router.route('/about')
-.get(function(req, res){
-    res.render('about');
-});
+.get((req, res) => res.render('about'));
 
 // LIST AND CREATE QUESTIONS
 router.route('/questions')
@@ -21,9 +17,8 @@ router.route('/questions')
 .post(helpers.question.createQuestion);
 
 // CREATE QUESTION FORM
-router.get('/questions/new', function(req, res){
-    res.render('newquestion');
-});
+router.route('/questions/new') 
+.get((req, res) => res.render('newquestion'));
 
 // LIST NONAPPROVED QUESTIONS
 router.route('/questions/toapprove') 
@@ -47,22 +42,19 @@ router.route('/questions/:id/approve')
 router.route('/questions/:id/disapprove')
 .put(middleware.auth.isLoggedIn, helpers.question.disapproveQuestion);
 
-// COMMENT
-router.route('/comment')
+// COMMENTS
+router.route('/questions/:id/comment')
+.get(helpers.comment.getComment)
 .post(middleware.auth.isLoggedIn, helpers.comment.createComment)
 
 // REGISTER 
 router.route('/register')
-.get(function(req, res){
-    res.render('register');
-})
+.get((req, res) => res.render('register'))
 .post(helpers.user.createUser);
 
 // LOGIN
 router.route('/login')
-.get(function(req, res){
-    res.render('login');
-})
+.get((req, res) => res.render('login'))
 .post(passport.authenticate('local',{
     successRedirect: '/',
     failureRedirect: '/login',
@@ -78,4 +70,5 @@ router.route('/user')
 .get(middleware.auth.isLoggedIn, helpers.user.editUserForm)
 .put(helpers.user.editUser);
 
+// EXPORT ROUTES TO APP.JS
 module.exports = router;

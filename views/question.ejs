@@ -1,38 +1,30 @@
 <% include partials/header %>
-    <div class="jumbotron jumbotron-fluid text-center jb-title"><h2><strong>Comentários</strong></h2></div>
-    <div class="container">
-        <div class="jumbotron">
-            <div class="container mb-5">
-                <h3 class="text-center"><%= question.title %></h3>
-            </div>
-            <div class="container">
-            <% if(comments.length > 0){ %>
-            <% comments.forEach(function(comment){ %>
-                <div class="jumbotron jb-comment mb-3">
-                    <div>
-                        <h5><%= comment.author %></h5>
-                        <h6><%= comment.date.toDateString() %></h6>
-                        <span><%= comment.text %></span>
+
+<div class="jumbotron jumbotron-fluid text-center jb-title"><h2><strong>Perguntas e Respostas</strong></h2></div>
+<div class="container">
+    <div class="jumbotron">
+        <div class="container">
+            
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn-link collapsed text-left" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+                        <%= question.title %>
+                        </button>
+                    </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <%- question.answer %>
+                    </div>
                     </div>
                 </div>
-            <% }) %>
-            <% } %>
+            </div>
+
         </div>
     </div>
-   <% if(isLogged){ %>
-    <div class="jumbotron">
-        <form action="/comment?id=<%= question._id %>" method="POST">
-            <div class="form-group">
-                <textarea type="textarea" class="form-control" id="comment" placeholder="Deixe um comentário ou sugestão sobre a pergunta acima." rows="5" name="text"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
-    </div>
-   <% }else{ %>
-    <div class="jumbotron text-center">
-        <h3>Para comentar é preciso estar logado!</h3>
-        <a href="/login" class="btn btn-primary" role="button">Login</a>
-    </div>
-   <% } %>
 </div>
+
 <% include partials/footer %>

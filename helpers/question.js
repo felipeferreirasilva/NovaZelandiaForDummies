@@ -10,10 +10,12 @@ exports.getQuestion = function(req, res){
         })
         .catch(function(err){
             console.log(err)
+            res.redirect('/')
         }) 
     })
     .catch(function(err){
         console.log(err);
+        res.redirect('/')
     })
 }
 
