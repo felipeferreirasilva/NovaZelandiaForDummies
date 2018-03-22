@@ -2,11 +2,13 @@
     <div class="jumbotron jumbotron-fluid text-center jb-title"><h2><strong>Comentários</strong></h2></div>
     <div class="container">
         <div class="jumbotron">
-            <h3 class="text-center mb-5"><%= question.title %></h3>
+            <div class="container mb-5">
+                <h3 class="text-center"><%= question.title %></h3>
+            </div>
             <div class="container">
             <% if(comments.length > 0){ %>
             <% comments.forEach(function(comment){ %>
-                <div class="jumbotron jb-comment">
+                <div class="jumbotron jb-comment mb-3">
                     <div>
                         <h5><%= comment.author %></h5>
                         <h6><%= comment.date.toDateString() %></h6>

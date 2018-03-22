@@ -1,7 +1,7 @@
 <% include partials/header %>
 <div class="jumbotron jumbotron-fluid text-center jb-title"><h2><strong>Alterar Pergunta</strong></h2></div>
 <div class="container">
-    <div class="jumbotron uq-jumbotron">
+    <div class="jumbotron jb-updatequestion">
         <form action="/questions/<%= question._id %>?_method=PUT" method="POST">
             <div class="form-group">
                 <label for="id">Identificador</label>
