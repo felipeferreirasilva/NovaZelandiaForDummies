@@ -29,8 +29,9 @@ router.get('/questions/new', function(req, res){
 router.route('/questions/toapprove') 
 .get(middleware.auth.isLoggedIn, helpers.question.getNonapprovedQuestions);
 
-// UPDATE QUESTION
+// QUESTION
 router.route('/questions/:id')
+.get(helpers.question.getQuestion)
 .put(middleware.auth.isLoggedIn, helpers.question.updateQuestion)
 .delete(middleware.auth.isLoggedIn, helpers.question.deleteQuestion);
 
@@ -45,6 +46,10 @@ router.route('/questions/:id/approve')
 // DISAPPROVE QUESTION
 router.route('/questions/:id/disapprove')
 .put(middleware.auth.isLoggedIn, helpers.question.disapproveQuestion);
+
+// COMMENT
+router.route('/comment')
+.post(middleware.auth.isLoggedIn, helpers.comment.createComment)
 
 // REGISTER 
 router.route('/register')

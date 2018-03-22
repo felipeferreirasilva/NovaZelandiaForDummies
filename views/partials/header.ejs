@@ -43,20 +43,17 @@
                         <% } %>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="navbarDropdown">
-                    <% if(!isLogged){ %>
                         <a class="dropdown-item" href="/questions/new">Incluir Pergunta</a>
+                    <% if(!isLogged){ %>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/login">Entrar</a>
                         <a class="dropdown-item" href="/register">Registrar</a>
                     <% } else if (currentUser.role === 'user') { %>
-                        <a class="dropdown-item" href="/questions/new">Incluir Pergunta</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
                     <% } else if (currentUser.role === 'editor') { %>
-                        <a class="dropdown-item" href="/questions/new">Incluir Pergunta</a>
                         <a class="dropdown-item" href="/questions/toapprove">Perguntas Pendentes</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
                     <% } else if (currentUser.role === 'admin') { %>
-                        <a class="dropdown-item" href="/questions/new">Incluir Pergunta</a>
                         <a class="dropdown-item" href="/questions/toapprove">Perguntas Pendentes</a>
                         <a class="dropdown-item" href="/user">Editar Usuarios</a>
                         <a class="dropdown-item" href="/logout">Logout</a>

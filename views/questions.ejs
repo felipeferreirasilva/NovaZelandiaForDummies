@@ -18,17 +18,30 @@
                         <div class="card mb-3">
                             <div class="card-header" id="<%= question._id %>">
                                 <h5 class="mb-0">
-                                    <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button> 
-                                    <% if(isLogged) { %>
-                                        <% if(currentUser.role === 'editor' || currentUser.role === 'admin'){ %>
-                                            <div>
+                                    <button class="btn-link collapsed text-left" data-toggle="collapse" data-target="#id<%= question._id %>" aria-expanded="false" title="ID: #<%= question._id %>"><%= question.title %></button>
+                                    <div class="buttons">
+                                        <a href="/questions/<%= question._id %>" title="Exibir Comentarios">
+                                            <div class="comment-btn">
+                                                <span class="badge badge-notify">
+                                                    <% var qtd = 0 %>
+                                                    <% comments.forEach(function(comment){ %>
+                                                        <% if(comment.questionId == question._id){ %>
+                                                            <% qtd++ %>
+                                                        <% } %>
+                                                    <% }) %>
+                                                    <%= qtd %> comentarios
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <% if(isLogged) { %>
+                                            <% if(currentUser.role === 'editor' || currentUser.role === 'admin'){ %>
                                                 <form action="/questions/<%= question._id %>/disapprove?_method=PUT" method="POST">
                                                     <button type="submit" title="Desaprovar pergunta" class="oi oi-circle-x btn btn-info btn-md"></button>
                                                 </form>                                                
                                                 <a href="/questions/<%= question._id %>/edit" title="Editar pergunta"><span class="oi oi-pencil btn btn-primary btn-md"></span></a>
-                                            </div>
+                                            <% } %>
                                         <% } %>
-                                    <% } %> 
+                                    </div>
                                 </h5>
                             </div>
                             <div id="id<%= question._id %>" class="collapse" data-parent="#accordion">

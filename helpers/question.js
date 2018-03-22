@@ -1,6 +1,22 @@
 const   db              = require('../models'),
         strings         = require('../helpers/')
 
+exports.getQuestion = function(req, res){
+    db.Question.findById(req.params.id)
+    .then(function(question){
+        db.Comment.find({questionId: req.params.id})     
+        .then(function(comments){
+            res.render('question', {question: question, comments: comments})
+        })
+        .catch(function(err){
+            console.log(err)
+        }) 
+    })
+    .catch(function(err){
+        console.log(err);
+    })
+}
+
 exports.getQuestions = function(req, res){
     var query = req.query.search;
     if(query){
@@ -9,7 +25,10 @@ exports.getQuestions = function(req, res){
             if(data.length == 0){
                 res.render('questions', {questions: data, query: query, error: strings.const.text.noQuestionsFound});
             }else{
-                res.render('questions', {questions: data, query: query});
+                db.Comment.find({})     
+                .then(function(comments){
+                    res.render('questions', {questions: data, query: query, comments: comments});
+                })
             }
         })       
         .catch(function(err){
@@ -18,7 +37,10 @@ exports.getQuestions = function(req, res){
     }else{
         db.Question.find({ approved: true})
         .then(function(data){
-            res.render('questions', {questions: data, query: query});
+            db.Comment.find({})     
+            .then(function(comments){
+                res.render('questions', {questions: data, query: query, comments: comments});
+            })
         })
         .catch(function(err){
             console.log(err);

@@ -1,0 +1,36 @@
+<% include partials/header %>
+    <div class="jumbotron jumbotron-fluid text-center jb-title"><h2><strong>Comentários</strong></h2></div>
+    <div class="container">
+        <div class="jumbotron">
+            <h3 class="text-center mb-5"><%= question.title %></h3>
+            <div class="container">
+            <% if(comments.length > 0){ %>
+            <% comments.forEach(function(comment){ %>
+                <div class="jumbotron jb-comment">
+                    <div>
+                        <h5><%= comment.author %> - <%= comment.date.toDateString() %> </h5>
+                        <h6><%= comment.username %></h6>
+                        <h6 class="text-justify"><%= comment.text %></h6>
+                    </div>
+                </div>
+            <% }) %>
+            <% } %>
+        </div>
+    </div>
+   <% if(isLogged){ %>
+    <div class="jumbotron">
+        <form action="/comment?id=<%= question._id %>" method="POST">
+            <div class="form-group">
+                <textarea type="textarea" class="form-control" id="comment" placeholder="Deixe um comentário ou sugestão sobre a pergunta acima." rows="5" name="text"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+   <% }else{ %>
+    <div class="jumbotron text-center">
+        <h3>Para comentar é preciso estar logado!</h3>
+        <a href="/login" class="btn btn-primary" role="button">Login</a>
+    </div>
+   <% } %>
+</div>
+<% include partials/footer %>

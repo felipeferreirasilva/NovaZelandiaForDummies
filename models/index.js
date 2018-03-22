@@ -8,3 +8,4 @@ mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
 
 module.exports.Question = require('./question');
 module.exports.User = require('./user');
+module.exports.Comment = require('./comment')
