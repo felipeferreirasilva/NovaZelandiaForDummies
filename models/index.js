@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// PROD DATABASE URL
+// PROD DATABASE URL.
 mongoose.connect('mongodb://nzfd:nzfd6079@mongo_nzfd:27017/nzfd');
 
 // TEST DATABASE URL
