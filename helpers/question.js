@@ -1,5 +1,6 @@
 const   db              = require('../models'),
-        strings         = require('../helpers/')
+        strings         = require('../helpers/'),
+        request         = require('request');
 
 exports.getQuestion = function(req, res){
     db.Question.findById(req.params.id)
@@ -47,18 +48,30 @@ exports.getQuestions = function(req, res){
 }
 
 exports.createQuestion = function(req, res){
-    var title = req.body.title;
-    var answer = req.body.answer;
-    var category = req.body.category;
-    var author = " ";
-    if(req.isAuthenticated()){author = req.user.username};
-    var question = {title: title, answer: answer, category: category, approved: false, author: author}
-    db.Question.create(question)
-    .then(function(){
-        req.flash('success', strings.const.text.questionCreateSuccessful);
+    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        req.flash('error', strings.const.text.captchaError);
         res.redirect('/questions/new');
-    })
-    .catch((err) => console.log(err));
+    }else{
+        var secretKey = "6LenkE4UAAAAADFgHmVE66OjbLah8AqoGRR3_nxC";
+        var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+        request(verificationUrl,function(error,response,body) {
+            body = JSON.parse(body);   
+            if(body.success === true){
+                var title = req.body.title;
+                var answer = req.body.answer;
+                var category = req.body.category;
+                var author = " ";
+                if(req.isAuthenticated()){author = req.user.username};
+                var question = {title: title, answer: answer, category: category, approved: false, author: author}
+                db.Question.create(question)
+                .then(function(){
+                    req.flash('success', strings.const.text.questionCreateSuccessful);
+                    res.redirect('/questions/new');
+                })
+                .catch((err) => console.log(err));
+            }
+        });
+    }
 }
 
 exports.getNonapprovedQuestions = function(req, res){

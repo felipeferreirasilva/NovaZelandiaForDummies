@@ -10,7 +10,8 @@ exports.text = {
     questionApproved: 'Pergunta aprovada e enviada para a área de Perguntas!',
     questionRepproved: 'Pergunta reprovada e enviada para a área de Perguntas Pendentes.',
     commentCreated: 'O comentário foi inserido com sucesso!',
-    commentDeleted: 'O comentário foi excluido com sucesso!'
+    commentDeleted: 'O comentário foi excluido com sucesso!',
+    captchaError: 'Por favor, resolva o captcha no final do formulário'
 };
 
 module.exports = exports;
