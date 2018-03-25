@@ -3,34 +3,42 @@ const   router      = require('express').Router(),
         passport    = require('passport'),
         helpers     = require('../helpers');
 
-// INDEX
+// HOME
 router.route('/')
+// SHOW HOME PAGE
 .get((req, res) => res.render('index'));
 
 // ABOUT
 router.route('/about')
+// SHOW ABOUT PAGE
 .get((req, res) => res.render('about'));
 
-// LIST AND CREATE QUESTIONS
+// QUESTIONS
 router.route('/questions')
+// SHOW QUESTIONS PAGE
 .get(helpers.question.getQuestions)
+// CREATE QUESTION
 .post(helpers.question.createQuestion);
 
-// CREATE QUESTION FORM
+// SHOW CREATE QUESTION FORM
 router.route('/questions/new') 
 .get((req, res) => res.render('newquestion'));
 
-// LIST NONAPPROVED QUESTIONS
+// NONAPPROVED QUESTIONS
 router.route('/questions/toapprove') 
+// SHOW NONAPPROVED QUESTIONS
 .get(middleware.auth.isLoggedIn, helpers.question.getNonapprovedQuestions);
 
 // QUESTION
 router.route('/questions/:id')
+// SHOW ONE QUESTION
 .get(helpers.question.getQuestion)
+// UPDATE ONE QUESTION
 .put(middleware.auth.isLoggedIn, helpers.question.updateQuestion)
+// DELETE ONE QUESTION
 .delete(middleware.auth.isLoggedIn, helpers.question.deleteQuestion);
 
-// UPDATE QUESTION FORM
+// SHOW UPDATE QUESTION FORM
 router.route('/questions/:id/edit')
 .get(middleware.auth.isLoggedIn, helpers.question.updateQuestionForm);
 
@@ -44,8 +52,11 @@ router.route('/questions/:id/disapprove')
 
 // COMMENTS
 router.route('/questions/:id/comment')
+// SHOW COMMENTS OF ONE QUESTION
 .get(helpers.comment.getComment)
+// CREATE COMMENT
 .post(middleware.auth.isLoggedIn, helpers.comment.createComment)
+// DELETE COMMENT
 .delete(middleware.auth.isLoggedIn, helpers.comment.deleteComment)
 
 // REGISTER 
